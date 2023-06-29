@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import CoordsCalculator from "../src/components/CoordsCalculator/CoordsCalculator"
+import CircleGenerator from './components/CircleGenerator/CircleGenerator'
 import './App.css'
 
 function App() {
@@ -8,6 +9,8 @@ function App() {
   return (
     <>
       <CoordsCalculator/>
+      <CircleGenerator/>
+    
     </>
   )
 }
