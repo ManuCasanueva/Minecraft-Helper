@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import CoordsCalculator from "../src/components/CoordsCalculator/CoordsCalculator"
 import CircleGenerator from './components/CircleGenerator/CircleGenerator'
+import OvalGenerator from './components/OvalGenerator/OvalGenerator'
 import './App.css'
 
 function App() {
@@ -10,7 +11,7 @@ function App() {
     <>
       <CoordsCalculator/>
       <CircleGenerator/>
-    
+      <OvalGenerator/>
     </>
   )
 }
