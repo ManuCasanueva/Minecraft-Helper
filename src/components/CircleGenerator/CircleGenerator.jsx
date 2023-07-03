@@ -141,10 +141,7 @@ const CircleGenerator = () => {
   
     setPixels(newPixels);
   
-    // Actualizar las dimensiones del grid para adaptarse al nuevo tamaño
-    const pixelGrid = document.querySelector(".pixel-grid");
-    pixelGrid.style.gridTemplateColumns = `repeat(${customWidth}, 1fr)`;
-    pixelGrid.style.gridTemplateRows = `repeat(${customHeight}, 1fr)`;
+
   };
   
   
