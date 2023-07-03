@@ -144,26 +144,6 @@ const CircleGenerator = () => {
 
   };
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-
   const toggleButton = () => {
     setIsActive(!isActive);
   };
@@ -198,7 +178,7 @@ useEffect(() => {
 
 useEffect(() => {
     if (!isActive) {
-      setWidth(customWidth);
+      setCustomWidth(customWidth);
       setHeight(customHeight);
     }
 }, [customWidth, customHeight, isActive]);
