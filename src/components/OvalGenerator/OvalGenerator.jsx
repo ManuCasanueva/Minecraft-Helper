@@ -24,10 +24,13 @@ const OvalGenerator = () => {
   const generateOvalPixels = () => {
     const newPixels = [];
   
-    const radiusX = Math.floor((width - 1) / 2);
-    const radiusY = Math.floor((height - 1) / 2);
+    const radiusX = Math.floor(width / 2);
+    const radiusY = Math.floor(height / 2);
     const centerX = Math.floor(width / 2);
     const centerY = Math.floor(height / 2);
+  
+    const offsetX = width % 2 === 0 ? -0.5 : 0;
+    const offsetY = height % 2 === 0 ? -0.5 : 0;
   
     const radiusX2 = radiusX * radiusX;
     const radiusY2 = radiusY * radiusY;
@@ -41,13 +44,13 @@ const OvalGenerator = () => {
     let p = Math.round(radiusY2 - radiusX2 * radiusY + (0.25 * radiusX2));
   
     while (dx < dy) {
-      if (centerY + y < height) {
-        newPixels.push({ x: centerX + x, y: centerY + y, filled: true });
-        newPixels.push({ x: centerX - x, y: centerY + y, filled: true });
+      if (centerY + y + offsetY < height) {
+        newPixels.push({ x: centerX + x + offsetX, y: centerY + y + offsetY, filled: true });
+        newPixels.push({ x: centerX - x + offsetX, y: centerY + y + offsetY, filled: true });
       }
       if (centerY - y >= 0) {
-        newPixels.push({ x: centerX - x, y: centerY - y, filled: true });
-        newPixels.push({ x: centerX + x, y: centerY - y, filled: true });
+        newPixels.push({ x: centerX - x + offsetX, y: centerY - y + offsetY, filled: true });
+        newPixels.push({ x: centerX + x + offsetX, y: centerY - y + offsetY, filled: true });
       }
   
       x++;
@@ -65,13 +68,13 @@ const OvalGenerator = () => {
     p = Math.round(radiusY2 * (x + 0.5) * (x + 0.5) + radiusX2 * (y - 1) * (y - 1) - radiusX2 * radiusY2);
   
     while (y >= 0) {
-      if (centerY + y < height) {
-        newPixels.push({ x: centerX + x, y: centerY + y, filled: true });
-        newPixels.push({ x: centerX - x, y: centerY + y, filled: true });
+      if (centerY + y + offsetY < height) {
+        newPixels.push({ x: centerX + x + offsetX, y: centerY + y + offsetY, filled: true });
+        newPixels.push({ x: centerX - x + offsetX, y: centerY + y + offsetY, filled: true });
       }
       if (centerY - y >= 0) {
-        newPixels.push({ x: centerX - x, y: centerY - y, filled: true });
-        newPixels.push({ x: centerX + x, y: centerY - y, filled: true });
+        newPixels.push({ x: centerX - x + offsetX, y: centerY - y + offsetY, filled: true });
+        newPixels.push({ x: centerX + x + offsetX, y: centerY - y + offsetY, filled: true });
       }
   
       y--;
@@ -89,16 +92,17 @@ const OvalGenerator = () => {
     const totalPixels = width * height;
   
     for (let i = 0; i < totalPixels; i++) {
-      const x = i % width;
-      const y = Math.floor(i / width);
+      const currentX = i % width;
+      const currentY = Math.floor(i / width);
   
-      if (!newPixels.some((pixel) => pixel.x === x && pixel.y === y)) {
-        newPixels.push({ x, y, filled: false });
+      if (!newPixels.some((pixel) => pixel.x === currentX && pixel.y === currentY)) {
+        newPixels.push({ x: currentX, y: currentY, filled: false });
       }
     }
   
     setPixels(newPixels);
   };
+  
   
   
 
