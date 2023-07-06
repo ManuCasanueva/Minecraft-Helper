@@ -4,28 +4,27 @@ import style from "../CoordsCalculator/CoordsCalculator.module.css";
 
 const CoordsCalculator = () => {
   const [coords, setCoords] = useState({
-    xCoords:"",
-    yCoords:"",
-    zCoords:"",
+    xCoords: "",
+    yCoords: "",
+    zCoords: "",
   });
 
   const [divisionCoords, setDivisionCoords] = useState({
-    xCoords:"",
-    yCoords:"",
-    zCoords:"",
+    xCoords: "",
+    yCoords: "",
+    zCoords: "",
   });
-
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-  
+
     if (value === "") {
       const updatedCoords = {
         ...coords,
-        [name]: ""
+        [name]: "",
       };
       setCoords(updatedCoords);
-  
+
       if (updatedCoords) {
         const { xCoords, yCoords, zCoords } = updatedCoords;
         const divisionX = parseFloat(xCoords) / 8;
@@ -33,16 +32,16 @@ const CoordsCalculator = () => {
         setDivisionCoords({
           xCoords: divisionX.toString(),
           yCoords: yCoords,
-          zCoords: divisionZ.toString()
+          zCoords: divisionZ.toString(),
         });
       }
     } else if (!isNaN(parseFloat(value))) {
       const updatedCoords = {
         ...coords,
-        [name]: value
+        [name]: value,
       };
       setCoords(updatedCoords);
-  
+
       if (updatedCoords) {
         const { xCoords, yCoords, zCoords } = updatedCoords;
         const divisionX = Math.floor(xCoords / 8);
@@ -50,22 +49,22 @@ const CoordsCalculator = () => {
         setDivisionCoords({
           xCoords: divisionX.toString(),
           yCoords: yCoords,
-          zCoords: divisionZ.toString()
+          zCoords: divisionZ.toString(),
         });
       }
     }
   };
-  
+
   const handleChange2 = (event) => {
     const { name, value } = event.target;
-  
+
     if (value === "") {
       const updatedCoords = {
         ...divisionCoords,
-        [name]: ""
+        [name]: "",
       };
       setDivisionCoords(updatedCoords);
-  
+
       if (updatedCoords) {
         const { xCoords, yCoords, zCoords } = updatedCoords;
         const multiplicationX = parseFloat(xCoords) * 8;
@@ -73,16 +72,16 @@ const CoordsCalculator = () => {
         setCoords({
           xCoords: multiplicationX.toString(),
           yCoords: yCoords,
-          zCoords: multiplicationZ.toString()
+          zCoords: multiplicationZ.toString(),
         });
       }
     } else if (!isNaN(parseFloat(value))) {
       const updatedCoords = {
         ...divisionCoords,
-        [name]: value
+        [name]: value,
       };
       setDivisionCoords(updatedCoords);
-  
+
       if (updatedCoords) {
         const { xCoords, yCoords, zCoords } = updatedCoords;
         const multiplicationX = Math.floor(xCoords * 8);
@@ -90,209 +89,209 @@ const CoordsCalculator = () => {
         setCoords({
           xCoords: multiplicationX.toString(),
           yCoords: yCoords,
-          zCoords: multiplicationZ.toString()
+          zCoords: multiplicationZ.toString(),
         });
       }
     }
   };
 
-
   return (
     <>
-    <div className={style.divContainer}>
-      <h4 className={style.world}>OVERWORLD</h4>
-      <div className={style.mainContainer}>
-        <TextField
-         sx={{
-          m: 1,
-          width: 200,  
-          "& .MuiOutlinedInput-root": {
-            color: "white",
-            "& fieldset": {
-              borderColor: "white",
-            },
-            "&:hover fieldset": {
-              borderColor: "white",
-            },
-            "&.Mui-focused fieldset": {
-              borderColor: "white",
-            },
-          },
-          "& .MuiInputLabel-outlined": {
-            color: "white",
-          },
-          "& .MuiInputLabel-outlined.Mui-focused": {
-            color: "white",
-          },
-        }}
-        name="xCoords"
-        type="number"
-        variant="outlined"
-        label="Coordinates"
-        value={coords.xCoords}
-        onChange={handleChange}
-        />
-        <h3 className={style.coords}>X</h3>
-        <TextField
-        sx={{
-          m: 1,
-          width: 200,  
-          "& .MuiOutlinedInput-root": {
-            color: "white",
-            "& fieldset": {
-              borderColor: "white",
-            },
-            "&:hover fieldset": {
-              borderColor: "white",
-            },
-            "&.Mui-focused fieldset": {
-              borderColor: "white",
-            },
-          },
-          "& .MuiInputLabel-outlined": {
-            color: "white",
-          },
-          "& .MuiInputLabel-outlined.Mui-focused": {
-            color: "white",
-          },
-        }}
-        name="yCoords"
-        type="number"
-        variant="outlined"
-        label="Coordinates"
-        value={coords.yCoords}
-        onChange={handleChange}
-        inputProps={{ min: -Infinity }}
-        />
-        <h3 className={style.coords}>Y</h3>
-        <TextField
-       sx={{
-        m: 1,
-        width: 200,  
-        "& .MuiOutlinedInput-root": {
-          color: "white",
-          "& fieldset": {
-            borderColor: "white",
-          },
-          "&:hover fieldset": {
-            borderColor: "white",
-          },
-          "&.Mui-focused fieldset": {
-            borderColor: "white",
-          },
-        },
-        "& .MuiInputLabel-outlined": {
-          color: "white",
-        },
-        "& .MuiInputLabel-outlined.Mui-focused": {
-          color: "white",
-        },
-      }}
-        name="zCoords"
-        type="number"
-        variant="outlined"
-        label="Coordinates"
-        value={coords.zCoords}
-        onChange={handleChange}
-        />
-        <h3 className={style.coords}>Z</h3>
-      </div>
-      <h4 className={style.world}>NETHER</h4>
-      <div className={style.mainContainer}>
-        <TextField
-          sx={{
-            m: 1,
-            width: 200,  
-            "& .MuiOutlinedInput-root": {
-              color: "white",
-              "& fieldset": {
-                borderColor: "white",
+      <div className={style.divContainer}>
+        <h4 className={style.world}>OVERWORLD</h4>
+        <div className={style.mainContainer}>
+          <h3 className={style.coords}>X</h3>
+          <TextField
+            sx={{
+              m: 1,
+              width: 200,
+              "& .MuiOutlinedInput-root": {
+                color: "white",
+                "& fieldset": {
+                  borderColor: "white",
+                },
+                "&:hover fieldset": {
+                  borderColor: "white",
+                },
+                "&.Mui-focused fieldset": {
+                  borderColor: "white",
+                },
               },
-              "&:hover fieldset": {
-                borderColor: "white",
+              "& .MuiInputLabel-outlined": {
+                color: "white",
               },
-              "&.Mui-focused fieldset": {
-                borderColor: "white",
+              "& .MuiInputLabel-outlined.Mui-focused": {
+                color: "white",
               },
-            },
-            "& .MuiInputLabel-outlined": {
-              color: "white",
-            },
-            "& .MuiInputLabel-outlined.Mui-focused": {
-              color: "white",
-            },
-          }}
-          name="xCoords"
-          type="number"
-          variant="outlined"
-          label="Coordinates"
-          value={divisionCoords.xCoords}
-          onChange={handleChange2}
-        />
-        <h3 className={style.coords}>X</h3>
-        <TextField
-         sx={{
-          m: 1,
-          width: 200,  
-          "& .MuiOutlinedInput-root": {
-            color: "white",
-            "& fieldset": {
-              borderColor: "white",
-            },
-            "&:hover fieldset": {
-              borderColor: "white",
-            },
-            "&.Mui-focused fieldset": {
-              borderColor: "white",
-            },
-          },
-          "& .MuiInputLabel-outlined": {
-            color: "white",
-          },
-          "& .MuiInputLabel-outlined.Mui-focused": {
-            color: "white",
-          },
-        }}
-          name="yCoords"
-          type="number"
-          variant="outlined"
-          label="Coordinates"
-          value={divisionCoords.yCoords}
-          onChange={handleChange2}
-        />
-        <h3 className={style.coords}>Y</h3>
-        <TextField
-         sx={{
-          m: 1,
-          width: 200,  
-          "& .MuiOutlinedInput-root": {
-            color: "white",
-            "& fieldset": {
-              borderColor: "white",
-            },
-            "&:hover fieldset": {
-              borderColor: "white",
-            },
-            "&.Mui-focused fieldset": {
-              borderColor: "white",
-            },
-          },
-          "& .MuiInputLabel-outlined": {
-            color: "white",
-          },
-          "& .MuiInputLabel-outlined.Mui-focused": {
-            color: "white",
-          },
-        }}
-          name="zCoords"
-          type="number"
-          variant="outlined"
-          label="Coordinates"
-          value={divisionCoords.zCoords}
-          onChange={handleChange2}
-        />
-        <h3 className={style.coords}>Z</h3>
-      </div>
+            }}
+            name="xCoords"
+            type="number"
+            variant="outlined"
+            label="Coordinates"
+            value={coords.xCoords}
+            onChange={handleChange}
+          />
+          <h3 className={style.coords}>Y</h3>
+          <TextField
+            sx={{
+              m: 1,
+              width: 200,
+              "& .MuiOutlinedInput-root": {
+                color: "white",
+                "& fieldset": {
+                  borderColor: "white",
+                },
+                "&:hover fieldset": {
+                  borderColor: "white",
+                },
+                "&.Mui-focused fieldset": {
+                  borderColor: "white",
+                },
+              },
+              "& .MuiInputLabel-outlined": {
+                color: "white",
+              },
+              "& .MuiInputLabel-outlined.Mui-focused": {
+                color: "white",
+              },
+            }}
+            name="yCoords"
+            type="number"
+            variant="outlined"
+            label="Coordinates"
+            value={coords.yCoords}
+            onChange={handleChange}
+            inputProps={{ min: -Infinity }}
+          />
+
+          <h3 className={style.coords}>Z</h3>
+          <TextField
+            sx={{
+              m: 1,
+              width: 200,
+              "& .MuiOutlinedInput-root": {
+                color: "white",
+                "& fieldset": {
+                  borderColor: "white",
+                },
+                "&:hover fieldset": {
+                  borderColor: "white",
+                },
+                "&.Mui-focused fieldset": {
+                  borderColor: "white",
+                },
+              },
+              "& .MuiInputLabel-outlined": {
+                color: "white",
+              },
+              "& .MuiInputLabel-outlined.Mui-focused": {
+                color: "white",
+              },
+            }}
+            name="zCoords"
+            type="number"
+            variant="outlined"
+            label="Coordinates"
+            value={coords.zCoords}
+            onChange={handleChange}
+          />
+        </div>
+        <h4 className={style.world}>NETHER</h4>
+        <div className={style.mainContainer}>
+          <h3 className={style.coords}>X</h3>
+          <TextField
+            sx={{
+              m: 1,
+              width: 200,
+              "& .MuiOutlinedInput-root": {
+                color: "white",
+                "& fieldset": {
+                  borderColor: "white",
+                },
+                "&:hover fieldset": {
+                  borderColor: "white",
+                },
+                "&.Mui-focused fieldset": {
+                  borderColor: "white",
+                },
+              },
+              "& .MuiInputLabel-outlined": {
+                color: "white",
+              },
+              "& .MuiInputLabel-outlined.Mui-focused": {
+                color: "white",
+              },
+            }}
+            name="xCoords"
+            type="number"
+            variant="outlined"
+            label="Coordinates"
+            value={divisionCoords.xCoords}
+            onChange={handleChange2}
+          />
+          <h3 className={style.coords}>Y</h3>
+          <TextField
+            sx={{
+              m: 1,
+              width: 200,
+              "& .MuiOutlinedInput-root": {
+                color: "white",
+                "& fieldset": {
+                  borderColor: "white",
+                },
+                "&:hover fieldset": {
+                  borderColor: "white",
+                },
+                "&.Mui-focused fieldset": {
+                  borderColor: "white",
+                },
+              },
+              "& .MuiInputLabel-outlined": {
+                color: "white",
+              },
+              "& .MuiInputLabel-outlined.Mui-focused": {
+                color: "white",
+              },
+            }}
+            name="yCoords"
+            type="number"
+            variant="outlined"
+            label="Coordinates"
+            value={divisionCoords.yCoords}
+            onChange={handleChange2}
+          />
+          <h3 className={style.coords}>Z</h3>
+          <TextField
+            sx={{
+              m: 1,
+              width: 200,
+              "& .MuiOutlinedInput-root": {
+                color: "white",
+                "& fieldset": {
+                  borderColor: "white",
+                },
+                "&:hover fieldset": {
+                  borderColor: "white",
+                },
+                "&.Mui-focused fieldset": {
+                  borderColor: "white",
+                },
+              },
+              "& .MuiInputLabel-outlined": {
+                color: "white",
+              },
+              "& .MuiInputLabel-outlined.Mui-focused": {
+                color: "white",
+              },
+            }}
+            name="zCoords"
+            type="number"
+            variant="outlined"
+            label="Coordinates"
+            value={divisionCoords.zCoords}
+            onChange={handleChange2}
+          />
+        </div>
       </div>
     </>
   );

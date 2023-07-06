@@ -1,5 +1,5 @@
 .divContainer{
-    background-image: url("../../assets/2020-11-29_23.42.43.png");
+    background-image: url("../../assets/atardecer.png");
     margin: 30px auto;
     padding: 30px ;
     display: flex;
@@ -21,13 +21,13 @@ width: 800px;
 .coords {
     display: flex;
     text-align: center;
-    color: black;
+    color: rgb(255, 255, 255);
     font-weight: bold;
     font-size: 20px;
 }
 
 .world {
-    color: black;
+    color: rgb(255, 255, 255);
     font-weight: bold;
     font-size: 30px;
     margin-top: 10px;
