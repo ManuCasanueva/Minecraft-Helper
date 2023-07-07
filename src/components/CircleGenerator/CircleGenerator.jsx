@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { TextField, Button } from "@mui/material";
+import { TextField, Button, Box } from "@mui/material";
+import { Stage, Layer, Rect } from "react-konva";
+import { createTheme } from "@mui/material/styles";
+
+import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import "./CircleGenerator.css";
 
 const CircleGenerator = () => {
   const [width, setWidth] = useState(25);
   const [height, setHeight] = useState(25);
-  const [customWidth, setCustomWidth] = useState(25);
+  const [customWidth, setCustomWidth] = useState(35);
   const [customHeight, setCustomHeight] = useState(25);
   const [pixels, setPixels] = useState([]);
   const [isActive, setIsActive] = useState(true);
@@ -18,7 +24,7 @@ const CircleGenerator = () => {
       return;
     }
 
-    if (width === height) {
+    if (isActive) {
       generateCirclePixels();
     } else {
       generateOvalPixels();
@@ -28,9 +34,10 @@ const CircleGenerator = () => {
   const generateCirclePixels = () => {
     const radius = Math.floor(Math.min(width, height) / 2);
     const centerX = width % 2 === 0 ? (width - 1) / 2 : Math.floor(width / 2);
-    const centerY = height % 2 === 0 ? (height - 1) / 2 : Math.floor(height / 2);
+    const centerY =
+      height % 2 === 0 ? (height - 1) / 2 : Math.floor(height / 2);
     const newPixels = [];
-  
+
     for (let y = 0; y < height; y++) {
       for (let x = 0; x < width; x++) {
         const distanceX = Math.abs(x - centerX);
@@ -38,7 +45,7 @@ const CircleGenerator = () => {
         const distanceToCenter = Math.sqrt(
           distanceX * distanceX + distanceY * distanceY
         );
-  
+
         if (Math.abs(distanceToCenter - radius) <= 0.5) {
           if (x === centerX && y === centerY) {
             newPixels.push({ x, y, filled: true });
@@ -55,99 +62,82 @@ const CircleGenerator = () => {
         }
       }
     }
-  
+
     if (width % 2 !== 0 && height % 2 !== 0) {
       newPixels.push({ x: centerX, y: centerY, filled: true, isCenter: true });
     }
-  
+
     setPixels(newPixels);
   };
 
   const generateOvalPixels = () => {
     const newPixels = [];
-  
     const radiusX = Math.floor(customWidth / 2);
     const radiusY = Math.floor(customHeight / 2);
     const centerX = Math.floor(customWidth / 2);
     const centerY = Math.floor(customHeight / 2);
   
-    const radiusX2 = radiusX * radiusX;
-    const radiusY2 = radiusY * radiusY;
-  
-    let x = 0;
-    let y = radiusY;
-  
-    let dx = 0;
-    let dy = 2 * radiusX2 * y;
-  
-    let p = Math.round(radiusY2 - radiusX2 * radiusY + (0.25 * radiusX2));
-  
-    while (dx < dy) {
-      if (centerY + y < customHeight) {
-        newPixels.push({ x: centerX + x, y: centerY + y, filled: true });
-        newPixels.push({ x: centerX - x - 1, y: centerY + y, filled: true });
-      }
-      if (centerY - y >= 0) {
-        newPixels.push({ x: centerX - x - 1, y: centerY - y, filled: true });
-        newPixels.push({ x: centerX + x, y: centerY - y, filled: true });
-      }
-  
-      x++;
-      dx += 2 * radiusY2;
-  
-      if (p < 0) {
-        p += radiusY2 + dx;
-      } else {
-        y--;
-        dy -= 2 * radiusX2;
-        p += radiusY2 + dx - dy;
-      }
-    }
-  
-    p = Math.round(radiusY2 * (x + 0.5) * (x + 0.5) + radiusX2 * (y - 1) * (y - 1) - radiusX2 * radiusY2);
-  
-    while (y >= 0) {
-      if (centerY + y < customHeight) {
-        newPixels.push({ x: centerX + x, y: centerY + y, filled: true });
-        newPixels.push({ x: centerX - x - 1, y: centerY + y, filled: true });
-      }
-      if (centerY - y >= 0) {
-        newPixels.push({ x: centerX - x - 1, y: centerY - y, filled: true });
-        newPixels.push({ x: centerX + x, y: centerY - y, filled: true });
-      }
-  
-      y--;
-      dy -= 2 * radiusX2;
-  
-      if (p > 0) {
-        p += radiusX2 - dy;
-      } else {
-        x++;
-        dx += 2 * radiusY2;
-        p += radiusX2 - dy + dx;
-      }
-    }
-  
     const totalPixels = customWidth * customHeight;
   
     for (let i = 0; i < totalPixels; i++) {
-      const x = i % customWidth;
-      const y = Math.floor(i / customWidth);
+      const currentX = i % customWidth;
+      const currentY = Math.floor(i / customWidth);
   
-      if (!newPixels.some((pixel) => pixel.x === x && pixel.y === y)) {
-        newPixels.push({ x, y, filled: false });
+      const distanceToCenter =
+        ((currentX - centerX) * (currentX - centerX)) / (radiusX * radiusX) +
+        ((currentY - centerY) * (currentY - centerY)) / (radiusY * radiusY);
+  
+      const isOnBoundary =
+        Math.abs(distanceToCenter - 1) < 0.03 &&
+        Math.abs(distanceToCenter - 1) > 0.01;
+  
+      if (isOnBoundary) {
+        newPixels.push({ x: currentX, y: currentY, filled: true });
+      } else {
+        newPixels.push({ x: currentX, y: currentY, filled: false });
       }
     }
   
     setPixels(newPixels);
-  
-
   };
   
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+
+  
+
   const toggleButton = () => {
     setIsActive(!isActive);
   };
 
+  const handleIncrement = (fieldName) => {
+    if (fieldName === "width") {
+      setCustomWidth((prevWidth) => prevWidth + 2);
+    } else if (fieldName === "height") {
+      setCustomHeight((prevHeight) => prevHeight + 2);
+    }
+  };
+
+  const handleDecrement = (fieldName) => {
+    if (fieldName === "width") {
+      setCustomWidth((prevWidth) => Math.max(prevWidth - 2, 1));
+    } else if (fieldName === "height") {
+      setCustomHeight((prevHeight) => Math.max(prevHeight - 2, 1));
+    }
+  };
 
   const handleSizeChange = (e) => {
     const newSize = parseInt(e.target.value);
@@ -162,86 +152,154 @@ const CircleGenerator = () => {
         setCustomHeight(newSize);
       }
     }
-};
+  };
 
-useEffect(() => {
-    if (isActive) {
-      generatePixels();
-    } else {
-      generateOvalPixels(); // Generar óvalos en lugar de círculos cuando no está activo
-    }
-}, [isActive, height, width]);
-
-useEffect(() => {
+  useEffect(() => {
     generatePixels();
-}, [isActive, width]);
+  }, [isActive, width, height, customWidth, customHeight]);
 
-useEffect(() => {
-    if (!isActive) {
-      setCustomWidth(customWidth);
-      setHeight(customHeight);
-    }
-}, [customWidth, customHeight, isActive]);
-
-useEffect(() => {
-    generatePixels();
-    setPixels((prevPixels) =>
-      prevPixels.map((pixel) => {
-        const inCenterX = pixel.x >= centerX - 1 && pixel.x <= centerX + 1;
-        const inCenterY = pixel.y >= centerY - 1 && pixel.y <= centerY + 1;
-
-        if (inCenterX && inCenterY) {
-          return { ...pixel };
-        } else {
-          return pixel;
-        }
-      })
-    );
-}, [centerX, centerY, customWidth, customHeight]);
-
-useEffect(() => {
-    setCenterX(Math.floor((customWidth - 1) / 2));
-    setCenterY(Math.floor((customHeight - 1) / 2));
-}, [customWidth, customHeight]);
+  useEffect(() => {
+    setCenterX(Math.floor((width - 1) / 2));
+    setCenterY(Math.floor((height - 1) / 2));
+  }, [width, height]);
 
   return (
     <div className="App">
-
-      <h1>Generador de Círculos</h1>
+      <h1>Circle/Oval Generator</h1>
+      <Button
+        variant="contained"
+        color={isActive ? "primary" : "secondary"}
+        onClick={toggleButton}
+      >
+        {isActive ? "Circle" : "Oval"}
+      </Button>
       <div className="settings">
-        <TextField
-          sx={{ m: 1, width: 200 }}
-          name="width"
-          type="number"
-          variant="outlined"
-          label="Width"
-          value={isActive ? width : customWidth}
-          onChange={handleSizeChange}
+        <div className="botones">
+          <TextField
+            sx={{ m: 1, width: 200 }}
+            name="width"
+            type="number"
+            variant="outlined"
+            label="Width"
+            value={isActive ? width : customWidth}
+            onChange={handleSizeChange}
           />
-        <TextField
-          sx={{ m: 1, width: 200 }}
-          name="height"
-          type="number"
-          variant="outlined"
-          label="Height"
-          value={isActive ? height : customHeight}
-          onChange={handleSizeChange}
+
+          {!isActive && (
+            <Box
+              display="flex"
+              flexDirection="column"
+              alignItems="center"
+              justifyContent="center"
+              gap="10px"
+              sx={{ marginTop: "0px", padding: "0px" }}
+            >
+              <Button
+                onClick={() => handleIncrement("width")}
+                sx={{ width: "10px", height: "10px", marginLeft: "0px" }}
+              >
+                <ArrowUpwardIcon
+                  sx={{
+                    color: "black",
+                    width: "20px",
+                    height: "20px",
+                    marginLeft: "0px",
+                  }}
+                />
+              </Button>
+              <Button
+                onClick={() => handleDecrement("width")}
+                sx={{ width: "10px", height: "10px", marginLeft: "0px" }}
+              >
+                <ArrowDownwardIcon
+                  sx={{
+                    color: "black",
+                    width: "20px",
+                    height: "20px",
+                    marginLeft: "0px",
+                  }}
+                />
+              </Button>
+            </Box>
+          )}
+        </div>
+        <div className="botones">
+          <TextField
+            sx={{ m: 1, width: 200 }}
+            name="height"
+            type="number"
+            variant="outlined"
+            label="Height"
+            value={isActive ? height : customHeight}
+            onChange={handleSizeChange}
           />
-        <button style={{backgroundColor:isActive?"green":"green", color: isActive ? "black":"black"}} onClick={toggleButton}>{isActive ? "Circle" : "Oval"}</button>
+          {!isActive && (
+            <Box
+              display="flex"
+              flexDirection="column"
+              alignItems="center"
+              justifyContent="center"
+              gap="10px"
+              sx={{ marginTop: "0px", padding: "0px" }}
+            >
+              <Button
+                onClick={() => handleIncrement("height")}
+                sx={{ width: "10px", height: "10px", marginLeft: "0px" }}
+              >
+                <ArrowUpwardIcon
+                  sx={{
+                    color: "black",
+                    width: "20px",
+                    height: "20px",
+                    marginLeft: "0px",
+                  }}
+                />
+              </Button>
+              <Button
+                onClick={() => handleDecrement("height")}
+                sx={{ width: "10px", height: "10px", marginLeft: "0px" }}
+              >
+                <ArrowDownwardIcon
+                  sx={{color: "black",width: "20px",height: "20px",marginLeft: "0px",}}
+                />
+              </Button>
+            </Box>
+          )}
+        </div>
       </div>
       <div className="divCircle">
-      <div className="pixel-grid">
-        {pixels.map((pixel, index) => (
-          <div
-            key={index}
-            className={`pixel ${pixel.filled ? "filled" : ""} ${
-              pixel.isCenter ? "center" : ""
-            }`}
-            style={{ gridColumn: pixel.x + 1, gridRow: pixel.y + 1 }}
-            />
+        <Stage
+          width={isActive ? width * 10 : customWidth * 10}
+          height={isActive ? height * 10 : customHeight * 10}
+        >
+          <Layer>
+            {pixels.map((pixel, index) => (
+              <Rect
+                key={index}
+                x={pixel.x * 10}
+                y={pixel.y * 10}
+                width={10}
+                height={10}
+                fill={pixel.filled ? "#ff0000" : ""}
+                stroke="rgba(0, 0, 0, 0.24)"
+              />
             ))}
+            {pixels
+              .filter((pixel) => pixel.isCenter)
+              .map((pixel, index) => (
+                <Rect
+                  key={index}
+                  x={pixel.x * 10}
+                  y={pixel.y * 10}
+                  width={10}
+                  height={10}
+                  fill="#11d82f"
+                  stroke="rgba(0, 0, 0, 0.226)"
+                />
+              ))}
+          </Layer>
+        </Stage>
       </div>
-            </div>
     </div>
   );
 };
