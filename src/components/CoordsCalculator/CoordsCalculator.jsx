@@ -97,33 +97,17 @@ const CoordsCalculator = () => {
 
   return (
     <>
+    <div className={style.pageContainer}>
       <div className={style.divContainer}>
         <h4 className={style.world}>OVERWORLD</h4>
         <div className={style.mainContainer}>
           <h3 className={style.coords}>X</h3>
           <TextField
-            sx={{
-              m: 1,
-              width: 200,
-              "& .MuiOutlinedInput-root": {
-                color: "white",
-                "& fieldset": {
-                  borderColor: "white",
-                },
-                "&:hover fieldset": {
-                  borderColor: "white",
-                },
-                "&.Mui-focused fieldset": {
-                  borderColor: "white",
-                },
-              },
-              "& .MuiInputLabel-outlined": {
-                color: "white",
-              },
-              "& .MuiInputLabel-outlined.Mui-focused": {
-                color: "white",
-              },
-            }}
+           sx={{m: 1, width: 200,"& .MuiOutlinedInput-root": {color: "white",fontFamily: "Minecraftia","& fieldset": {borderColor: "white",},
+              "&:hover fieldset": {borderColor: "white",},
+              "&.Mui-focused fieldset": {borderColor: "white",},},
+              "& .MuiInputLabel-outlined": {color: "white",fontFamily: "Minecraftia",},
+              "& .MuiInputLabel-outlined.Mui-focused": {color: "white",fontFamily: "Minecraftia",},}}
             name="xCoords"
             type="number"
             variant="outlined"
@@ -133,28 +117,11 @@ const CoordsCalculator = () => {
           />
           <h3 className={style.coords}>Y</h3>
           <TextField
-            sx={{
-              m: 1,
-              width: 200,
-              "& .MuiOutlinedInput-root": {
-                color: "white",
-                "& fieldset": {
-                  borderColor: "white",
-                },
-                "&:hover fieldset": {
-                  borderColor: "white",
-                },
-                "&.Mui-focused fieldset": {
-                  borderColor: "white",
-                },
-              },
-              "& .MuiInputLabel-outlined": {
-                color: "white",
-              },
-              "& .MuiInputLabel-outlined.Mui-focused": {
-                color: "white",
-              },
-            }}
+            sx={{m: 1, width: 200,"& .MuiOutlinedInput-root": {color: "white",fontFamily: "Minecraftia","& fieldset": {borderColor: "white",},
+              "&:hover fieldset": {borderColor: "white",},
+              "&.Mui-focused fieldset": {borderColor: "white",},},
+              "& .MuiInputLabel-outlined": {color: "white",fontFamily: "Minecraftia",},
+              "& .MuiInputLabel-outlined.Mui-focused": {color: "white",fontFamily: "Minecraftia",},}}
             name="yCoords"
             type="number"
             variant="outlined"
@@ -166,28 +133,11 @@ const CoordsCalculator = () => {
 
           <h3 className={style.coords}>Z</h3>
           <TextField
-            sx={{
-              m: 1,
-              width: 200,
-              "& .MuiOutlinedInput-root": {
-                color: "white",
-                "& fieldset": {
-                  borderColor: "white",
-                },
-                "&:hover fieldset": {
-                  borderColor: "white",
-                },
-                "&.Mui-focused fieldset": {
-                  borderColor: "white",
-                },
-              },
-              "& .MuiInputLabel-outlined": {
-                color: "white",
-              },
-              "& .MuiInputLabel-outlined.Mui-focused": {
-                color: "white",
-              },
-            }}
+            sx={{m: 1, width: 200,"& .MuiOutlinedInput-root": {color: "white",fontFamily: "Minecraftia","& fieldset": {borderColor: "white",},
+              "&:hover fieldset": {borderColor: "white",},
+              "&.Mui-focused fieldset": {borderColor: "white",},},
+              "& .MuiInputLabel-outlined": {color: "white",fontFamily: "Minecraftia",},
+              "& .MuiInputLabel-outlined.Mui-focused": {color: "white",fontFamily: "Minecraftia",},}}
             name="zCoords"
             type="number"
             variant="outlined"
@@ -200,28 +150,11 @@ const CoordsCalculator = () => {
         <div className={style.mainContainer}>
           <h3 className={style.coords}>X</h3>
           <TextField
-            sx={{
-              m: 1,
-              width: 200,
-              "& .MuiOutlinedInput-root": {
-                color: "white",
-                "& fieldset": {
-                  borderColor: "white",
-                },
-                "&:hover fieldset": {
-                  borderColor: "white",
-                },
-                "&.Mui-focused fieldset": {
-                  borderColor: "white",
-                },
-              },
-              "& .MuiInputLabel-outlined": {
-                color: "white",
-              },
-              "& .MuiInputLabel-outlined.Mui-focused": {
-                color: "white",
-              },
-            }}
+            sx={{m: 1, width: 200,"& .MuiOutlinedInput-root": {color: "white",fontFamily: "Minecraftia","& fieldset": {borderColor: "white",},
+              "&:hover fieldset": {borderColor: "white",},
+              "&.Mui-focused fieldset": {borderColor: "white",},},
+              "& .MuiInputLabel-outlined": {color: "white",fontFamily: "Minecraftia",},
+              "& .MuiInputLabel-outlined.Mui-focused": {color: "white",fontFamily: "Minecraftia",},}}
             name="xCoords"
             type="number"
             variant="outlined"
@@ -231,28 +164,11 @@ const CoordsCalculator = () => {
           />
           <h3 className={style.coords}>Y</h3>
           <TextField
-            sx={{
-              m: 1,
-              width: 200,
-              "& .MuiOutlinedInput-root": {
-                color: "white",
-                "& fieldset": {
-                  borderColor: "white",
-                },
-                "&:hover fieldset": {
-                  borderColor: "white",
-                },
-                "&.Mui-focused fieldset": {
-                  borderColor: "white",
-                },
-              },
-              "& .MuiInputLabel-outlined": {
-                color: "white",
-              },
-              "& .MuiInputLabel-outlined.Mui-focused": {
-                color: "white",
-              },
-            }}
+          sx={{m: 1, width: 200,"& .MuiOutlinedInput-root": {color: "white",fontFamily: "Minecraftia","& fieldset": {borderColor: "white",},
+          "&:hover fieldset": {borderColor: "white",},
+          "&.Mui-focused fieldset": {borderColor: "white",},},
+          "& .MuiInputLabel-outlined": {color: "white",fontFamily: "Minecraftia",},
+          "& .MuiInputLabel-outlined.Mui-focused": {color: "white",fontFamily: "Minecraftia",},}}
             name="yCoords"
             type="number"
             variant="outlined"
@@ -262,28 +178,11 @@ const CoordsCalculator = () => {
           />
           <h3 className={style.coords}>Z</h3>
           <TextField
-            sx={{
-              m: 1,
-              width: 200,
-              "& .MuiOutlinedInput-root": {
-                color: "white",
-                "& fieldset": {
-                  borderColor: "white",
-                },
-                "&:hover fieldset": {
-                  borderColor: "white",
-                },
-                "&.Mui-focused fieldset": {
-                  borderColor: "white",
-                },
-              },
-              "& .MuiInputLabel-outlined": {
-                color: "white",
-              },
-              "& .MuiInputLabel-outlined.Mui-focused": {
-                color: "white",
-              },
-            }}
+            sx={{m: 1, width: 200,"& .MuiOutlinedInput-root": {color: "white",fontFamily: "Minecraftia","& fieldset": {borderColor: "white",},
+              "&:hover fieldset": {borderColor: "white",},
+              "&.Mui-focused fieldset": {borderColor: "white",},},
+              "& .MuiInputLabel-outlined": {color: "white",fontFamily: "Minecraftia",},
+              "& .MuiInputLabel-outlined.Mui-focused": {color: "white",fontFamily: "Minecraftia",},}}
             name="zCoords"
             type="number"
             variant="outlined"
@@ -292,6 +191,7 @@ const CoordsCalculator = () => {
             onChange={handleChange2}
           />
         </div>
+      </div>
       </div>
     </>
   );

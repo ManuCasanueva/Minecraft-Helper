@@ -14,7 +14,7 @@ function App() {
       <NavBar />
       <Routes>
         <Route path="/" element={<CoordsCalculator />} />
-        <Route path="/oval" element={<OvalGenerator />} />
+        {/* <Route path="/oval" element={<OvalGenerator />} /> */}
         <Route path="/circle" element={<CircleGenerator />} />
       </Routes>
     </>

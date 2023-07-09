@@ -141,18 +141,24 @@ const CircleGenerator = () => {
 
   const handleSizeChange = (e) => {
     const newSize = parseInt(e.target.value);
-
-    if (isActive) {
-      setWidth(newSize);
-      setHeight(newSize);
-    } else {
-      if (e.target.name === "width") {
-        setCustomWidth(newSize);
-      } else if (e.target.name === "height") {
-        setCustomHeight(newSize);
+  
+    if (newSize <= 150) {
+      if (isActive) {
+        setWidth(newSize);
+        setHeight(newSize);
+      } else {
+        if (e.target.name === "width") {
+          setCustomWidth(newSize);
+        } else if (e.target.name === "height") {
+          setCustomHeight(newSize);
+        }
       }
+    } else {
+      // Aquí puedes manejar el caso en que el valor sea mayor a 150
+      console.log("El valor debe ser menor o igual a 150");
     }
   };
+  
 
   useEffect(() => {
     generatePixels();
@@ -165,18 +171,22 @@ const CircleGenerator = () => {
 
   return (
     <div className="App">
-      <h1>Circle/Oval Generator</h1>
-      <Button
+      <h1 className="titulo" >Circle Generator</h1>
+      {/* <Button sx={{fontFamily: "Minecraftia", }}
         variant="contained"
         color={isActive ? "primary" : "secondary"}
         onClick={toggleButton}
       >
         {isActive ? "Circle" : "Oval"}
-      </Button>
+      </Button> */}
       <div className="settings">
         <div className="botones">
           <TextField
-            sx={{ m: 1, width: 200 }}
+            sx={{m: 1,width: 200,"& .MuiOutlinedInput-root": {color: "white", fontFamily: "Minecraftia","& fieldset": {borderColor: "white",},
+            "&:hover fieldset": {borderColor: "white",},
+            "&.Mui-focused fieldset": {borderColor: "white",},},
+          "& .MuiInputLabel-outlined": {color: "white",},
+          "& .MuiInputLabel-outlined.Mui-focused": {color: "white",},}}
             name="width"
             type="number"
             variant="outlined"
@@ -225,7 +235,11 @@ const CircleGenerator = () => {
         </div>
         <div className="botones">
           <TextField
-            sx={{ m: 1, width: 200 }}
+            sx={{m: 1,width: 200,"& .MuiOutlinedInput-root": {color: "white",fontFamily: "Minecraftia","& fieldset": {borderColor: "white",},
+            "&:hover fieldset": {borderColor: "white",},
+            "&.Mui-focused fieldset": {borderColor: "white",},},
+          "& .MuiInputLabel-outlined": {color: "white",},
+          "& .MuiInputLabel-outlined.Mui-focused": {color: "white",},}}
             name="height"
             type="number"
             variant="outlined"
@@ -244,7 +258,7 @@ const CircleGenerator = () => {
             >
               <Button
                 onClick={() => handleIncrement("height")}
-                sx={{ width: "10px", height: "10px", marginLeft: "0px" }}
+                sx={{ width: "10px", height: "10px", marginLeft: "0px",  }}
               >
                 <ArrowUpwardIcon
                   sx={{
@@ -281,7 +295,7 @@ const CircleGenerator = () => {
                 width={10}
                 height={10}
                 fill={pixel.filled ? "#ff0000" : ""}
-                stroke="rgba(0, 0, 0, 0.24)"
+                stroke="rgba(0, 0, 0, 0.432)"
               />
             ))}
             {pixels

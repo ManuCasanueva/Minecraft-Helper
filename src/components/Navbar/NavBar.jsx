@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -16,13 +16,21 @@ import "../Navbar/NavBar.css"
 
 const pages = [
   { title: 'Nether coordinate divider', path: '/' },
-  { title: 'Circle generator', path: '/circle' }
+  { title: 'Circle generator', path: '/circle' },
+  // { title: 'Oval generator', path: '/Oval' }
 ];
+
 
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function NavBar() {
+  const location = useLocation();
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [activeButton, setActiveButton] = React.useState(null);
+
+  useEffect(() => {
+    setActiveButton(location.pathname);
+  }, [location.pathname]);
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -33,7 +41,7 @@ function NavBar() {
   };
 
   return (
-    <AppBar position="static" sx={{ width: '100%' , backgroundColor:"#1d1d1d"}}>
+    <AppBar position="static" sx={{ width: '100%', backgroundColor: "#1d1d1d", boxShadow: "-2px 7px 29px 0px rgba(144, 0, 255, 0.418);"}}>
       <Container maxWidth="xl" sx={{ width: '100%', marginLeft: '10px' }}>
         <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <Box sx={{ display: 'flex', alignItems: 'center', marginLeft: '10px' }}>
@@ -44,34 +52,49 @@ function NavBar() {
               to="/"
               sx={{
                 marginLeft: '10px',
-                fontFamily: 'monospace',
+                fontFamily: "Minecraftia",
                 fontWeight: 700,
                 color: 'white',
                 textDecoration: 'none',
+                '&:hover': {
+                  backgroundColor: 'transparent',
+                  color: 'rgba(162, 0, 255, 0.664)',
+                },
               }}
             >
               Minecraft Helper
             </Typography>
           </Box>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'center' }}>
-            {pages.map((page) => (
-              <Button
-                key={page.title}
-                component={Link}
-                to={page.path}
-                sx={{
-                  my: 2,
-                  color: 'white',
-                  display: 'block',
-                  marginLeft: '10px',
-                }}
-              >
-                {page.title}
-              </Button>
-            ))}
-          </Box>
-          {/* <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
+          <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center' }}>
+  {pages.map((page) => (
+    <Button
+      key={page.title}
+      component={Link}
+      to={page.path}
+      sx={{
+        my: 2,
+        display: 'block',
+        marginLeft: '10px',
+        fontFamily: 'Minecraftia',
+        border: location.pathname === page.path ? '2px solid black' : 'none',
+        boxShadow: location.pathname === page.path ? '0 0 5px rgba(153, 0, 255, 0.5)' : 'none',
+        color: activeButton === page.path ? 'violet' : 'white',
+        borderRadius: location.pathname === page.path ? '11px' : '0',
+        '&:hover': {
+          backgroundColor: 'transparent',
+          color: 'rgba(162, 0, 255, 0.664)',
+        },
+      }}
+      onClick={() => setActiveButton(page.path)}
+    >
+      {page.title}
+    </Button>
+  ))}
+</Box>
+
+
+          <Box sx={{ flexGrow: 0 }}>
+            {/* <Tooltip title="Open settings">
               <Button
                 size="large"
                 edge="end"
@@ -83,7 +106,7 @@ function NavBar() {
               >
                 <AdbIcon />
               </Button>
-            </Tooltip>
+            </Tooltip> */}
             <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"
@@ -106,7 +129,7 @@ function NavBar() {
                 </MenuItem>
               ))}
             </Menu>
-          </Box> */}
+          </Box>
         </Toolbar>
       </Container>
     </AppBar>
