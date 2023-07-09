@@ -76,48 +76,30 @@ const CircleGenerator = () => {
     const radiusY = Math.floor(customHeight / 2);
     const centerX = Math.floor(customWidth / 2);
     const centerY = Math.floor(customHeight / 2);
-  
+
     const totalPixels = customWidth * customHeight;
-  
+
     for (let i = 0; i < totalPixels; i++) {
       const currentX = i % customWidth;
       const currentY = Math.floor(i / customWidth);
-  
+
       const distanceToCenter =
         ((currentX - centerX) * (currentX - centerX)) / (radiusX * radiusX) +
         ((currentY - centerY) * (currentY - centerY)) / (radiusY * radiusY);
-  
+
       const isOnBoundary =
         Math.abs(distanceToCenter - 1) < 0.03 &&
         Math.abs(distanceToCenter - 1) > 0.01;
-  
+
       if (isOnBoundary) {
         newPixels.push({ x: currentX, y: currentY, filled: true });
       } else {
         newPixels.push({ x: currentX, y: currentY, filled: false });
       }
     }
-  
+
     setPixels(newPixels);
   };
-  
-  
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
-
-  
-  
-  
-
-  
 
   const toggleButton = () => {
     setIsActive(!isActive);
@@ -140,25 +122,40 @@ const CircleGenerator = () => {
   };
 
   const handleSizeChange = (e) => {
-    const newSize = parseInt(e.target.value);
-  
-    if (newSize <= 150) {
-      if (isActive) {
+    const { name, value } = e.target;
+
+    if (name === "height" || (name === "width" && value === "")) {
+      // Si el campo está vacío, establece el ancho en null y el alto en null
+      setWidth(null);
+      setHeight(null);
+    }
+
+    const newSize = parseFloat(value);
+
+    if (isNaN(newSize) || newSize > 150) {
+      console.log("El valor debe ser un número menor o igual a 150");
+      return;
+    }
+
+    if (isActive) {
+      setWidth(newSize);
+      setHeight(newSize);
+    } else {
+      if (e.target.name === "width") {
         setWidth(newSize);
+        if (isNaN(newSize)) {
+          // Si el ancho no es un número válido, establece el alto en null
+          setHeight(null);
+        }
+      } else if (e.target.name === "height") {
         setHeight(newSize);
-      } else {
-        if (e.target.name === "width") {
-          setCustomWidth(newSize);
-        } else if (e.target.name === "height") {
-          setCustomHeight(newSize);
+        if (isNaN(newSize)) {
+          // Si el alto no es un número válido, establece el ancho en null
+          setWidth(null);
         }
       }
-    } else {
-      // Aquí puedes manejar el caso en que el valor sea mayor a 150
-      console.log("El valor debe ser menor o igual a 150");
     }
   };
-  
 
   useEffect(() => {
     generatePixels();
@@ -171,7 +168,7 @@ const CircleGenerator = () => {
 
   return (
     <div className="App">
-      <h1 className="titulo" >Circle Generator</h1>
+      <h1 className="titulo">Circle Generator</h1>
       {/* <Button sx={{fontFamily: "Minecraftia", }}
         variant="contained"
         color={isActive ? "primary" : "secondary"}
@@ -185,14 +182,20 @@ const CircleGenerator = () => {
             sx={{m: 1,width: 200,"& .MuiOutlinedInput-root": {color: "white", fontFamily: "Minecraftia","& fieldset": {borderColor: "white",},
             "&:hover fieldset": {borderColor: "white",},
             "&.Mui-focused fieldset": {borderColor: "white",},},
-          "& .MuiInputLabel-outlined": {color: "white",},
+          "& .MuiInputLabel-outlined": {color: "white",fontFamily: "Minecraftia"},
           "& .MuiInputLabel-outlined.Mui-focused": {color: "white",},}}
             name="width"
             type="number"
             variant="outlined"
-            label="Width"
+            label="Diameter"
             value={isActive ? width : customWidth}
             onChange={handleSizeChange}
+            inputProps={{
+              inputMode: "numeric",
+              pattern: "[0-9]*",
+              min: 0,
+              max: 150,
+            }}
           />
 
           {!isActive && (
@@ -234,19 +237,16 @@ const CircleGenerator = () => {
           )}
         </div>
         <div className="botones">
-          <TextField
-            sx={{m: 1,width: 200,"& .MuiOutlinedInput-root": {color: "white",fontFamily: "Minecraftia","& fieldset": {borderColor: "white",},
-            "&:hover fieldset": {borderColor: "white",},
-            "&.Mui-focused fieldset": {borderColor: "white",},},
-          "& .MuiInputLabel-outlined": {color: "white",},
-          "& .MuiInputLabel-outlined.Mui-focused": {color: "white",},}}
-            name="height"
-            type="number"
-            variant="outlined"
-            label="Height"
-            value={isActive ? height : customHeight}
-            onChange={handleSizeChange}
-          />
+          {/* <TextField
+  sx={{ m: 1, width: 200, "& .MuiOutlinedInput-root": { color: "white", fontFamily: "Minecraftia", "& fieldset": { borderColor: "white" }, "&:hover fieldset": { borderColor: "white" }, "&.Mui-focused fieldset": { borderColor: "white" } }, "& .MuiInputLabel-outlined": { color: "white" }, "& .MuiInputLabel-outlined.Mui-focused": { color: "white" } }}
+  name="height"
+  type="number"
+  variant="outlined"
+  label="Height"
+  value={isActive ? height : customHeight}
+  onChange={handleSizeChange}
+  inputProps={{ inputMode: "numeric", pattern: "[0-9]*", min: 0, max: 150 }}
+/> */}
           {!isActive && (
             <Box
               display="flex"
@@ -258,7 +258,7 @@ const CircleGenerator = () => {
             >
               <Button
                 onClick={() => handleIncrement("height")}
-                sx={{ width: "10px", height: "10px", marginLeft: "0px",  }}
+                sx={{ width: "10px", height: "10px", marginLeft: "0px" }}
               >
                 <ArrowUpwardIcon
                   sx={{
@@ -274,7 +274,12 @@ const CircleGenerator = () => {
                 sx={{ width: "10px", height: "10px", marginLeft: "0px" }}
               >
                 <ArrowDownwardIcon
-                  sx={{color: "black",width: "20px",height: "20px",marginLeft: "0px",}}
+                  sx={{
+                    color: "black",
+                    width: "20px",
+                    height: "20px",
+                    marginLeft: "0px",
+                  }}
                 />
               </Button>
             </Box>
